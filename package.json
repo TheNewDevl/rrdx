@@ -1,0 +1,19 @@
+{
+  "name": "rrdx-mono",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently -k -n \"Server,Client,Storybook\" -p\"[{name}]\" -c \"blue,yellow,red\" \"npm run dev --workspace=apps/server\" \"npm run dev --workspace=apps/client\" \"npm run dev --workspace=packages\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
