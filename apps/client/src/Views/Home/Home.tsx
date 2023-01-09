@@ -1,7 +1,7 @@
 import style from "./Home.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { fetchOrUpdateAuth } from "../../store/features/auth";
-import { fetchOrUpdateUser, selectUser } from "../../store/features/user";
+import { authLogout, fetchOrUpdateAuth } from "../../store/features/auth";
+import { fetchOrUpdateUser, selectUser, userLogout } from "../../store/features/user";
 import { useEffect } from "react";
 
 interface HomeProps {}
@@ -26,6 +26,14 @@ export const Home = ({}: HomeProps) => {
       <button onClick={() => dispatch(fetchOrUpdateAuth(credentials))}>Login</button>
       <button onClick={() => dispatch(fetchOrUpdateUser())}>get user</button>
       <button onClick={() => dispatch(fetchOrUpdateUser(upCredentials))}>update user</button>
+      <button
+        onClick={() => {
+          dispatch(authLogout());
+          dispatch(userLogout());
+        }}
+      >
+        logout
+      </button>
     </div>
   );
 };

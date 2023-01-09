@@ -86,9 +86,12 @@ const { actions, reducer: userReducer } = createSlice({
         }
       }
     },
+    userLogout: (state) => {
+      return initialState;
+    },
   },
 });
 
 export const selectUser = (state: RootState) => state.user;
-export const { userFetching, userResolved, userRejected } = actions;
+export const { userFetching, userResolved, userRejected, userUpdateResolved, userLogout } = actions;
 export { userReducer };

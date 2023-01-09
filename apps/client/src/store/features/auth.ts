@@ -68,9 +68,12 @@ const { actions, reducer: authReducer } = createSlice({
         state.error = action.payload;
       }
     },
+    authLogout: (state) => {
+      return initialState;
+    },
   },
 });
 
 export const selectAuth = (state: RootState) => state.auth;
-export const { authResolved, authFetching, authRejected } = actions;
+export const { authResolved, authFetching, authRejected, authLogout } = actions;
 export { authReducer };
