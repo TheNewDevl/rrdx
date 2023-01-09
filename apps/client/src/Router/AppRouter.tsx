@@ -8,13 +8,12 @@ import { ProtectedRoutes } from "./ProtectedRoutes";
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path={"/profile"} element={<Profile />} />
-      <Route path={"/login"} element={<Login />} />
-      <Route path={"/"} element={<Home />} />
-      <Route path={"*"} element={<Error />} />
       <Route element={<ProtectedRoutes />}>
         <Route path={"/profile"} element={<Profile />} />
       </Route>
+      <Route path={"/login"} element={<Login />} />
+      <Route path={"/"} element={<Home />} />
+      <Route path={"*"} element={<Error />} />
     </Routes>
   );
 };
