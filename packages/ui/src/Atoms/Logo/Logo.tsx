@@ -1,5 +1,6 @@
 import style from "./Logo.module.scss";
 import logo from "../../assets/argentBankLogo.png";
+import { Title } from "../Title/Title";
 
 /**
  * Render the img logo and the text logo for screen readers
@@ -14,7 +15,7 @@ export const Logo = () => {
       <div className={style.Logo}>
         <img src={logo} alt="Argent Bank Logo" />
       </div>
-      <h1 className={style.sr_only}>Argent Bank</h1>
+      <Title level={"1"} srOnly children={"Argent Bank"} />
     </>
   );
 };
