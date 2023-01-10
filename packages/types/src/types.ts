@@ -79,3 +79,8 @@ export interface SignUpResponse {
     __v: 0;
   };
 }
+
+export interface CredentialErrors {
+  email?: string | null;
+  password?: string | null;
+}

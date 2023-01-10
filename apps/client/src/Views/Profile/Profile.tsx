@@ -21,11 +21,11 @@ export const Profile = ({}: ProfileProps) => {
         <div>
           <Input label={"First name"} type={"text"} onChange={handleNameValues} />
           <Input label={"Last name"} type={"text"} onChange={handleNameValues} />
-          <Button text={"Save"} onClick={handleSubmit} />
-          <Button text={"Cancel"} onClick={() => setIsEditing(false)} />
+          <Button children={"Save"} onClick={handleSubmit} />
+          <Button children={"Cancel"} onClick={() => setIsEditing(false)} />
         </div>
       ) : (
-        <Button text={"Edit Name"} onClick={() => setIsEditing(true)} />
+        <Button children={"Edit Name"} onClick={() => setIsEditing(true)} />
       )}
       <Title level={"2"} srOnly children={"Accounts"} />
       {account.map((ac, i) => (

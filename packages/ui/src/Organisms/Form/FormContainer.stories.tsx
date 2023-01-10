@@ -16,8 +16,8 @@ Primary.args = {
   title: "Sign in",
   children: (
     <>
-      <Input type={"text"} handleChange={() => {}} label={"Username"} />
-      <Button text={"Submit"} handleClick={() => {}} />
+      <Input type={"text"} onChange={(e) => {}} label={"Username"} />
+      <Button children={"Submit"} onClick={() => {}} />
     </>
   ),
 };

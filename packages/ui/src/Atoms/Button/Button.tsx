@@ -1,8 +1,8 @@
 import style from "./Button.module.scss";
-import { MouseEvent } from "react";
+import { MouseEvent, ReactNode } from "react";
 
 interface ButtonProps {
-  text: string;
+  children: ReactNode;
   onClick: (e: MouseEvent<HTMLButtonElement>) => void;
   cta?: boolean;
 }
@@ -11,15 +11,15 @@ interface ButtonProps {
  * Return a button element
  * ### Usage
  * ```jsx
- * <Button text="Click me" handleClick={handleClick} />
+ * <Button children="Click me" handleClick={handleClick} />
  * ```
  */
-export const Button = ({ text, onClick, cta }: ButtonProps) => {
+export const Button = ({ children, onClick, cta }: ButtonProps) => {
   const handleClass = () => (cta ? `${style.Button} ${style.cta}` : style.Button);
 
   return (
     <button onClick={onClick} className={handleClass()}>
-      {text}
+      {children}
     </button>
   );
 };

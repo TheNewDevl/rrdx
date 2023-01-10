@@ -9,3 +9,4 @@ export { Input } from "./Atoms/Input/Input";
 export { Button } from "./Atoms/Button/Button";
 export { FormContainer } from "./Organisms/Form/FormContainer";
 export { AccountsCard } from "./Molecules/AccountsCard/AccountsCard";
+export { Error as ErrorParagraph } from "./Atoms/Error/Error";

@@ -34,7 +34,7 @@ export const AccountsCard = ({ account, CTA }: AccountsCardProps) => {
         <p className={style.desc}>{account.desc}</p>
       </div>
       <div className={style.cta}>
-        <Button onClick={CTA.CTAAction} text={CTA.CTAText} cta />
+        <Button onClick={CTA.CTAAction} children={CTA.CTAText} cta />
       </div>
     </section>
   );
