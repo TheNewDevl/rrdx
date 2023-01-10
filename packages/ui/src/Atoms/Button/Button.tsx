@@ -3,6 +3,7 @@ import style from "./Button.module.scss";
 interface ButtonProps {
   text: string;
   onClick: () => void;
+  cta?: boolean;
 }
 
 /**
@@ -12,9 +13,11 @@ interface ButtonProps {
  * <Button text="Click me" handleClick={handleClick} />
  * ```
  */
-export const Button = ({ text, onClick }: ButtonProps) => {
+export const Button = ({ text, onClick, cta }: ButtonProps) => {
+  const handleClass = () => (cta ? `${style.Button} ${style.cta}` : style.button);
+
   return (
-    <button onClick={onClick} className={style.Button}>
+    <button onClick={onClick} className={handleClass()}>
       {text}
     </button>
   );
