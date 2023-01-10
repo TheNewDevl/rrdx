@@ -1,8 +1,9 @@
 import style from "./Button.module.scss";
+import { MouseEvent } from "react";
 
 interface ButtonProps {
   text: string;
-  onClick: () => void;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
   cta?: boolean;
 }
 

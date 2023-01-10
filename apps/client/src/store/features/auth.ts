@@ -2,6 +2,7 @@ import { AuthState, LoginBody, RequestStateEnum } from "@rrdx-mono/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
 import Api from "../../api/axios";
+import { fetchOrUpdateUser, userLogout } from "./user";
 
 const initialState: AuthState = {
   token: null,
@@ -19,7 +20,13 @@ export const fetchOrUpdateAuth = (credentials: LoginBody) => {
     dispatch(actions.authFetching());
     try {
       const data = await Api.login(credentials);
+      Api.requestToken = data.body.token;
       dispatch(actions.authResolved(data.body.token));
+      await dispatch(fetchOrUpdateUser());
+      const remember = selectAuth(getState()).remember;
+      if (remember) {
+        localStorage.setItem("token", JSON.stringify(data.body.token));
+      }
     } catch (error: any) {
       console.log(error);
       if (error.response) {
@@ -28,12 +35,19 @@ export const fetchOrUpdateAuth = (credentials: LoginBody) => {
         dispatch(
           actions.authRejected(
             error.message ??
-              "Une erreur s'est produite avec le server. Réessayez plus tard ou contacter l'administrateur."
+              "Une erreur s'est produite avec le server. Réessayez plus tard ou contactez l'administrateur."
           )
         );
       }
     }
   };
+};
+
+export const logout = (dispatch: AppDispatch, getState: () => RootState) => {
+  const remember = selectAuth(getState()).remember;
+  remember && localStorage.clear();
+  dispatch(actions.authLogout);
+  dispatch(userLogout());
 };
 
 const { actions, reducer: authReducer } = createSlice({
@@ -75,9 +89,12 @@ const { actions, reducer: authReducer } = createSlice({
     authRemember: (state, action: PayloadAction<boolean>) => {
       state.remember = action.payload;
     },
+    authSetToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload;
+    },
   },
 });
 
 export const selectAuth = (state: RootState) => state.auth;
-export const { authResolved, authFetching, authRejected, authLogout, authRemember } = actions;
+export const { authResolved, authFetching, authRejected, authRemember, authSetToken } = actions;
 export { authReducer };

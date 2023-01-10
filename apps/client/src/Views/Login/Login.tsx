@@ -1,26 +1,39 @@
 import { Button, FormContainer, Input } from "@rrdx-mono/ui";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { LoginBody } from "@rrdx-mono/types";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { authRemember, selectAuth } from "../../store/features/auth";
+import { authRemember, fetchOrUpdateAuth, selectAuth } from "../../store/features/auth";
+import { useNavigate } from "react-router-dom";
+import { selectUser } from "../../store/features/user";
 
 export const Login = () => {
   const [credentials, setCredentials] = useState<LoginBody>({ email: "", password: "" });
-  const remember = useAppSelector(selectAuth).remember;
+  const { remember, token, status: authStatus, error: authError } = useAppSelector(selectAuth);
+  const { user, status: userStatus, error: userError } = useAppSelector(selectUser);
+
   const dispatch = useAppDispatch();
 
-  const handleEmail = (event: ChangeEvent<HTMLInputElement>) => {
-    setCredentials({ ...credentials, email: event.target.value });
+  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    setCredentials({ ...credentials, email: e.target.value });
   };
-  const handlePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setCredentials({ ...credentials, password: event.target.value });
+  const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    setCredentials({ ...credentials, password: e.target.value });
   };
-  const handleRemember = (event: ChangeEvent<HTMLInputElement>) => {
-    localStorage.setItem("remember", JSON.stringify(event.target.checked));
-    dispatch(authRemember(event.target.checked));
+  const handleRemember = (e: ChangeEvent<HTMLInputElement>) => {
+    localStorage.setItem("remember", JSON.stringify(e.target.checked));
+    dispatch(authRemember(e.target.checked));
+  };
+  const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    dispatch(fetchOrUpdateAuth(credentials));
   };
 
-  const handleSubmit = () => {};
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (token && user) {
+      navigate("/profile", { replace: true });
+    }
+  }, [token, user]);
 
   return (
     <main style={{ flex: 1, backgroundColor: "#12002b" }}>
