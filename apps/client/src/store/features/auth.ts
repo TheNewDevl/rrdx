@@ -7,6 +7,7 @@ const initialState: AuthState = {
   token: null,
   status: RequestStateEnum.VOID,
   error: null,
+  remember: localStorage.getItem("remember") ? JSON.parse(localStorage.getItem("remember")!) : false,
 };
 
 export const fetchOrUpdateAuth = (credentials: LoginBody) => {
@@ -71,9 +72,12 @@ const { actions, reducer: authReducer } = createSlice({
     authLogout: (state) => {
       return initialState;
     },
+    authRemember: (state, action: PayloadAction<boolean>) => {
+      state.remember = action.payload;
+    },
   },
 });
 
 export const selectAuth = (state: RootState) => state.auth;
-export const { authResolved, authFetching, authRejected, authLogout } = actions;
+export const { authResolved, authFetching, authRejected, authLogout, authRemember } = actions;
 export { authReducer };

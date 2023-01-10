@@ -5,6 +5,8 @@ interface InputProps {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   type: string;
   label: string;
+  value?: string;
+  checked?: boolean;
 }
 
 /**
@@ -14,7 +16,7 @@ interface InputProps {
  * <Input handleChange={handleChange} type="text" label="Username" />
  * ```
  */
-export const Input = ({ onChange, type, label }: InputProps) => {
+export const Input = ({ onChange, type, label, ...rest }: InputProps) => {
   const id = label.toLowerCase().replace(" ", "-");
   const handleClass = () => {
     return type === "checkbox" ? style.Checkbox : style.Input;
@@ -22,7 +24,7 @@ export const Input = ({ onChange, type, label }: InputProps) => {
   return (
     <div className={handleClass()}>
       <label htmlFor={id}>{label}</label>
-      <input onChange={onChange} type={type} id={id} />
+      <input {...rest} onChange={onChange} type={type} id={id} />
     </div>
   );
 };

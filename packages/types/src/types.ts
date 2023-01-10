@@ -18,6 +18,7 @@ export interface AuthState {
   token: string | null;
   status: RequestStateEnum;
   error: any;
+  remember: boolean;
 }
 
 export interface User {
