@@ -4,11 +4,8 @@ import { authLogout, fetchOrUpdateAuth } from "../../store/features/auth";
 import { fetchOrUpdateUser, selectUser, userLogout } from "../../store/features/user";
 import { useEffect } from "react";
 import * as domain from "domain";
-import { FeatureCard } from "@rrdx-mono/ui/src/Molecules/FeatureCard/FeatureCard";
-import { FlexContainer } from "@rrdx-mono/ui/src/Atoms/FlexContainer/FlexContainer";
-import { Title } from "@rrdx-mono/ui/src/Atoms/Title/Title";
+import { FeatureCard, FlexContainer, Title, Hero } from "@rrdx-mono/ui";
 import { features, hero } from "../../mockup/homeMockup";
-import { Hero } from "@rrdx-mono/ui/src/Organisms/Hero/Hero";
 
 interface HomeProps {}
 

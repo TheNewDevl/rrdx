@@ -2,7 +2,7 @@ import style from "./Button.module.scss";
 
 interface ButtonProps {
   text: string;
-  handleClick: () => void;
+  onClick: () => void;
 }
 
 /**
@@ -12,9 +12,9 @@ interface ButtonProps {
  * <Button text="Click me" handleClick={handleClick} />
  * ```
  */
-export const Button = ({ text, handleClick }: ButtonProps) => {
+export const Button = ({ text, onClick }: ButtonProps) => {
   return (
-    <button onClick={handleClick} className={style.Button}>
+    <button onClick={onClick} className={style.Button}>
       {text}
     </button>
   );
