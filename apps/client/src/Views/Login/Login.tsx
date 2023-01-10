@@ -1,6 +1,6 @@
-import { Button, ErrorParagraph, FormContainer, Input } from "@rrdx-mono/ui";
+import { Button, ErrorParagraph, FormContainer, Input, Loader } from "@rrdx-mono/ui";
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
-import { CredentialErrors, LoginBody } from "@rrdx-mono/types";
+import { CredentialErrors, LoginBody, RequestStateEnum } from "@rrdx-mono/types";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { authRemember, fetchOrUpdateAuth, selectAuth } from "../../store/features/auth";
 import { useNavigate } from "react-router-dom";
@@ -60,7 +60,16 @@ export const Login = () => {
         {error.password && <ErrorParagraph>{error.password}</ErrorParagraph>}
         <Input checked={remember} onChange={handleRemember} type={"checkbox"} label={"Remember me"} />
         {(authError || userError) && <ErrorParagraph>{authError ?? userError ?? ""}</ErrorParagraph>}
-        <Button children={"Sign In"} onClick={handleSubmit} />
+        <Button
+          children={
+            authStatus === RequestStateEnum.PENDING || userStatus === RequestStateEnum.PENDING ? (
+              <Loader size={20} />
+            ) : (
+              "Sign In"
+            )
+          }
+          onClick={handleSubmit}
+        />
       </FormContainer>
     </main>
   );
