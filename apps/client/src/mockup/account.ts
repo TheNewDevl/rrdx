@@ -1,4 +1,4 @@
-export const accout = [
+export const account = [
   {
     title: "Argent Bank Checking (x8349)",
     amount: "$2,082.79",

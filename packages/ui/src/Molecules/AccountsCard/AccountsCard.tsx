@@ -4,7 +4,7 @@ import { Button } from "../../Atoms/Button/Button";
 interface AccountsCardProps {
   account: {
     title: string;
-    amount: number;
+    amount: string | number;
     desc: string;
   };
   CTA: {

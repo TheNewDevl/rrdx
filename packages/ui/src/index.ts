@@ -8,3 +8,4 @@ export { Hero } from "./Organisms/Hero/Hero";
 export { Input } from "./Atoms/Input/Input";
 export { Button } from "./Atoms/Button/Button";
 export { FormContainer } from "./Organisms/Form/FormContainer";
+export { AccountsCard } from "./Molecules/AccountsCard/AccountsCard";

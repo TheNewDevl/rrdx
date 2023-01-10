@@ -14,7 +14,7 @@ interface ButtonProps {
  * ```
  */
 export const Button = ({ text, onClick, cta }: ButtonProps) => {
-  const handleClass = () => (cta ? `${style.Button} ${style.cta}` : style.button);
+  const handleClass = () => (cta ? `${style.Button} ${style.cta}` : style.Button);
 
   return (
     <button onClick={onClick} className={handleClass()}>

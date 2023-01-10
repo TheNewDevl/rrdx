@@ -16,6 +16,8 @@
 
 .Checkbox {
   display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
 
   & label {
     margin-left: 0.25rem;
