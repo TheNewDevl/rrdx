@@ -1,0 +1,25 @@
+.Input {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 1rem;
+
+  & label {
+    font-weight: bold;
+  }
+
+  & input {
+    padding: 5px;
+    font-size: 1.2rem;
+  }
+}
+
+.Checkbox {
+  display: flex;
+
+  & label {
+    margin-left: 0.25rem;
+  }
+}
+
+/** Created by carlos on 10/01/2023 */
