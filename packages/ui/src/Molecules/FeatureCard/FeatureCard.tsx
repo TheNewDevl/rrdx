@@ -22,7 +22,7 @@ export const FeatureCard = ({ imgSrc, imgAlt, titleText, desc }: FeatureCardProp
   return (
     <div className={style.FeatureCard}>
       <Image src={imgSrc} alt={imgAlt} />
-      <Title children={titleText} level={"3"} color={"#111"} size={"1.23rem"} margin={"0 0 0.5rem 0"} />
+      <Title children={titleText} level={"3"} color={"#111"} size={"1.23rem"} mb={"0.5rem"} />
       <p>{desc}</p>
     </div>
   );

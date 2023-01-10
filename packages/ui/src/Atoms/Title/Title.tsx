@@ -9,6 +9,7 @@ interface TitleProps {
   padding?: number | string;
   color?: string;
   fontWeight?: string;
+  mb?: string;
 }
 
 export const Title = ({ level = "1", srOnly, children, ...rest }: TitleProps) => {
