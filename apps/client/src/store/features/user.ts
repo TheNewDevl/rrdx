@@ -1,7 +1,7 @@
-import { ProfileResponse, RequestStateEnum, UpdateProfileBody, User, UserState } from "@rrdx-mono/types";
+import { RequestStateEnum, UpdateProfileBody, User, UserState } from "@rrdx-mono/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
-import axios from "../../api/axios";
+import Api from "../../api/axios";
 import { selectAuth } from "./auth";
 
 const initialState: UserState = {
@@ -18,12 +18,8 @@ export const fetchOrUpdateUser = (credentials?: UpdateProfileBody) => {
     }
     dispatch(actions.userFetching());
     try {
-      const axiosMethod = credentials ? axios.put : axios.post;
-      const { data } = await axiosMethod<ProfileResponse>("user/profile", credentials ?? {}, {
-        headers: {
-          Authorization: `Bearer ${selectAuth(getState()).token}`,
-        },
-      });
+      Api.requestToken = selectAuth(getState()).token;
+      const data = credentials ? await Api.updateProfile(credentials) : await Api.getProfile();
       credentials ? dispatch(actions.userUpdateResolved(data.body)) : dispatch(actions.userResolved(data.body));
     } catch (error: any) {
       console.log(error);

@@ -1,7 +1,7 @@
-import { AuthState, LoginBody, LoginResponse, RequestStateEnum } from "@rrdx-mono/types";
+import { AuthState, LoginBody, RequestStateEnum } from "@rrdx-mono/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
-import axios from "../../api/axios";
+import Api from "../../api/axios";
 
 const initialState: AuthState = {
   token: null,
@@ -17,7 +17,7 @@ export const fetchOrUpdateAuth = (credentials: LoginBody) => {
     }
     dispatch(actions.authFetching());
     try {
-      const { data } = await axios.post<LoginResponse>("user/login", credentials);
+      const data = await Api.login(credentials);
       dispatch(actions.authResolved(data.body.token));
     } catch (error: any) {
       console.log(error);
