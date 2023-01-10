@@ -1,0 +1,10 @@
+.FlexContainer {
+  display: flex;
+  flex-direction: column;
+  
+  @media (min-width: 920px) {
+    flex-direction: row;
+  }
+}
+
+/** Created by carlos on 09/01/2023 */
