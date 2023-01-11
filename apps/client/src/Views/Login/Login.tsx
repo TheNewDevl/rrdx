@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { authRemember, fetchOrUpdateAuth, selectAuth } from "../../store/features/auth";
 import { useNavigate } from "react-router-dom";
 import { selectUser } from "../../store/features/user";
+import { credentialsValidator, setLsItem } from "@rrdx-mono/functions";
 
 export const Login = () => {
   const [credentials, setCredentials] = useState<LoginBody>({ email: "", password: "" });
@@ -20,30 +21,19 @@ export const Login = () => {
     setCredentials({ ...credentials, password: e.target.value });
   };
   const handleRemember = (e: ChangeEvent<HTMLInputElement>) => {
-    localStorage.setItem("remember", JSON.stringify(e.target.checked));
+    setLsItem("remember", e.target.checked);
     dispatch(authRemember(e.target.checked));
   };
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setError({} as CredentialErrors);
-    const isValidCredentials = credentialsValidator(credentials);
-    if (isValidCredentials) {
+    const { passwordError, emailError } = credentialsValidator(credentials);
+    if (!passwordError && !emailError) {
       dispatch(fetchOrUpdateAuth(credentials));
     }
+    setError({ passwordError, emailError });
   };
-  const credentialsValidator = (credentials: LoginBody) => {
-    const { password, email } = credentials;
-    let validity = true;
-    if (!email || !email.trim().match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)) {
-      setError({ ...error, email: "Invalid email" });
-      validity = false;
-    }
-    if (!password || password.length < 8) {
-      setError({ ...error, password: "Password must be at least 8 characters long" });
-      validity = false;
-    }
-    return validity;
-  };
+
   const navigate = useNavigate();
   useEffect(() => {
     if (token && user) {
@@ -55,11 +45,11 @@ export const Login = () => {
     <main style={{ flex: 1, backgroundColor: "#12002b" }}>
       <FormContainer title={"Sign In"}>
         <Input value={credentials.email} onChange={handleEmail} type={"text"} label={"Username"} />
-        {error.email && <ErrorParagraph>{error.email}</ErrorParagraph>}
+        <ErrorParagraph>{error.emailError && error.emailError}</ErrorParagraph>
         <Input value={credentials.password} onChange={handlePassword} type={"password"} label={"Password"} />
-        {error.password && <ErrorParagraph>{error.password}</ErrorParagraph>}
+        <ErrorParagraph>{error.passwordError && error.passwordError}</ErrorParagraph>
         <Input checked={remember} onChange={handleRemember} type={"checkbox"} label={"Remember me"} />
-        {(authError || userError) && <ErrorParagraph>{authError ?? userError ?? ""}</ErrorParagraph>}
+        <ErrorParagraph>{authError ?? userError ?? ""}</ErrorParagraph>
         <Button
           children={
             authStatus === RequestStateEnum.PENDING || userStatus === RequestStateEnum.PENDING ? (

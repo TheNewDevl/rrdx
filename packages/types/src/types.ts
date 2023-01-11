@@ -81,6 +81,6 @@ export interface SignUpResponse {
 }
 
 export interface CredentialErrors {
-  email?: string | null;
-  password?: string | null;
+  emailError?: string | null;
+  passwordError?: string | null;
 }

@@ -3,12 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
 import Api from "../../api/axios";
 import { fetchOrUpdateUser, userLogout } from "./user";
+import { getLsItem, removeLsItem, setLsItem } from "@rrdx-mono/functions";
 
 const initialState: AuthState = {
   token: null,
   status: RequestStateEnum.VOID,
   error: null,
-  remember: localStorage.getItem("remember") ? JSON.parse(localStorage.getItem("remember")!) : false,
+  remember: getLsItem("remember") ?? false,
 };
 
 export const fetchOrUpdateAuth = (credentials: LoginBody) => {
@@ -25,7 +26,7 @@ export const fetchOrUpdateAuth = (credentials: LoginBody) => {
       await dispatch(fetchOrUpdateUser());
       const remember = selectAuth(getState()).remember;
       if (remember) {
-        localStorage.setItem("token", JSON.stringify(data.body.token));
+        setLsItem("token", data.body.token);
       }
     } catch (error: any) {
       console.log(error);
@@ -45,7 +46,7 @@ export const fetchOrUpdateAuth = (credentials: LoginBody) => {
 
 export const logout = (dispatch: AppDispatch, getState: () => RootState) => {
   const remember = selectAuth(getState()).remember;
-  remember && localStorage.removeItem("token");
+  remember && removeLsItem("token");
   dispatch(actions.authLogout);
   dispatch(userLogout());
 };

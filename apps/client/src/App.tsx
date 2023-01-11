@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { fetchOrUpdateUser, selectUser } from "./store/features/user";
 import { logout } from "./store/features/auth";
 import { RequestStateEnum } from "@rrdx-mono/types";
+import { getLsItem } from "@rrdx-mono/functions";
 
 function App() {
   const { remember, status: authStatus } = useAppSelector(selectAuth);
@@ -16,8 +17,8 @@ function App() {
   useEffect(() => {
     //if user checked "remember me" checkbox and a token is present in local storage
     //set the token in the store and fetch user data
-    if (remember && localStorage.getItem("token")) {
-      dispatch(authSetToken(JSON.parse(localStorage.getItem("token")!)));
+    if (remember && getLsItem("token")) {
+      dispatch(authSetToken(getLsItem("token")));
       dispatch(fetchOrUpdateUser());
     }
   }, [remember]);
