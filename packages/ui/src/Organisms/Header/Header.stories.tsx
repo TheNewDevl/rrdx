@@ -24,4 +24,16 @@ export default {
 const Template: ComponentStory<typeof Header> = (args) => <Header {...args} />;
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  isLoggedIn: true,
+  profileLinkNode: "Tony",
+};
+export const LoggedOut = Template.bind({});
+LoggedOut.args = {
+  isLoggedIn: false,
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  isLoading: true,
+};
