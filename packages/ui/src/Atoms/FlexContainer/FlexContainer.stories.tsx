@@ -10,4 +10,6 @@ export default {
 const Template: ComponentStory<typeof FlexContainer> = (args) => <FlexContainer {...args} />;
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  element: "div",
+};

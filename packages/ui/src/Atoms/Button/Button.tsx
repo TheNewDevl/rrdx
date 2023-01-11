@@ -5,6 +5,8 @@ interface ButtonProps {
   children: ReactNode;
   onClick: (e: MouseEvent<HTMLButtonElement>) => void;
   cta?: boolean;
+  width?: string | number;
+  margin?: string | number;
 }
 
 /**
@@ -14,11 +16,11 @@ interface ButtonProps {
  * <Button children="Click me" handleClick={handleClick} />
  * ```
  */
-export const Button = ({ children, onClick, cta }: ButtonProps) => {
+export const Button = ({ children, onClick, cta, ...rest }: ButtonProps) => {
   const handleClass = () => (cta ? `${style.Button} ${style.cta}` : style.Button);
 
   return (
-    <button onClick={onClick} className={handleClass()}>
+    <button style={{ ...rest }} onClick={onClick} className={handleClass()}>
       {children}
     </button>
   );

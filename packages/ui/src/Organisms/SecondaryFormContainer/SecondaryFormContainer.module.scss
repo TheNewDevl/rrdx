@@ -1,0 +1,22 @@
+.SecondaryFormContainer {
+  box-sizing: border-box;
+  margin: 1rem auto 0 auto;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.inputs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: -1rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/** Created by carlos on 11/01/2023 */

@@ -7,6 +7,7 @@ interface InputProps {
   label: string;
   value?: string;
   checked?: boolean;
+  placeholder?: string;
 }
 
 /**

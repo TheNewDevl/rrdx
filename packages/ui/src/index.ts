@@ -11,3 +11,4 @@ export { FormContainer } from "./Organisms/Form/FormContainer";
 export { AccountsCard } from "./Molecules/AccountsCard/AccountsCard";
 export { Error as ErrorParagraph } from "./Atoms/Error/Error";
 export { Loader } from "./Atoms/Loader/Loader";
+export { SecondaryFormContainer } from "./Organisms/SecondaryFormContainer/SecondaryFormContainer";

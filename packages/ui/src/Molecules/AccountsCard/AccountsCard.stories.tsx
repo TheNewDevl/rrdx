@@ -16,7 +16,9 @@ Primary.args = {
     amount: 1000,
     desc: "Your current account balance",
   },
+
   CTA: {
     CTAText: "View account",
+    CTAAction: () => {},
   },
 };
