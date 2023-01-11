@@ -84,3 +84,13 @@ export interface CredentialErrors {
   emailError?: string | null;
   passwordError?: string | null;
 }
+
+export interface UsernamePayload {
+  firstName: string;
+  lastName: string;
+}
+
+export interface UsernameErrors {
+  firstNameError?: string | null;
+  lastNameError?: string | null;
+}

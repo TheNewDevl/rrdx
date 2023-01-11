@@ -2,6 +2,7 @@ import style from "./SecondaryFormContainer.module.scss";
 import { Input } from "../../Atoms/Input/Input";
 import { Button } from "../../Atoms/Button/Button";
 import { ReactElement } from "react";
+import { ErrorParagraph } from "../../index";
 
 interface SecondaryFormContainerProps {
   children: ReactElement[];
@@ -26,6 +27,7 @@ export const SecondaryFormContainer = ({ children }: SecondaryFormContainerProps
     <section className={style.SecondaryFormContainer}>
       <form>
         <div className={style.inputs}>{children?.filter((child) => child.type === Input)}</div>
+        {children?.filter((child) => child.type === ErrorParagraph)}
         <div className={style.buttons}>{children?.filter((child) => child.type === Button)}</div>
       </form>
     </section>

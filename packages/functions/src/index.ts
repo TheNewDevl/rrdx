@@ -3,4 +3,4 @@ export { getLsItem, setLsItem, removeLsItem } from "./LocalStorage";
 
 //Validators
 export { isJWT } from "class-validator";
-export { credentialsValidator } from "./Validators";
+export { credentialsValidator, usernameValidator } from "./Validators";

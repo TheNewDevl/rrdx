@@ -41,6 +41,7 @@ export const Login = () => {
     }
   }, [token, user]);
 
+  const isLoading = authStatus === RequestStateEnum.PENDING || userStatus === RequestStateEnum.PENDING;
   return (
     <main style={{ flex: 1, backgroundColor: "#12002b" }}>
       <FormContainer title={"Sign In"}>
@@ -50,16 +51,7 @@ export const Login = () => {
         <ErrorParagraph>{error.passwordError && error.passwordError}</ErrorParagraph>
         <Input checked={remember} onChange={handleRemember} type={"checkbox"} label={"Remember me"} />
         <ErrorParagraph>{authError ?? userError ?? ""}</ErrorParagraph>
-        <Button
-          children={
-            authStatus === RequestStateEnum.PENDING || userStatus === RequestStateEnum.PENDING ? (
-              <Loader size={20} />
-            ) : (
-              "Sign In"
-            )
-          }
-          onClick={handleSubmit}
-        />
+        <Button children={isLoading ? <Loader size={20} /> : "Sign In"} onClick={handleSubmit} />
       </FormContainer>
     </main>
   );
