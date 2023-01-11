@@ -45,7 +45,7 @@ export const fetchOrUpdateAuth = (credentials: LoginBody) => {
 
 export const logout = (dispatch: AppDispatch, getState: () => RootState) => {
   const remember = selectAuth(getState()).remember;
-  remember && localStorage.clear();
+  remember && localStorage.removeItem("token");
   dispatch(actions.authLogout);
   dispatch(userLogout());
 };

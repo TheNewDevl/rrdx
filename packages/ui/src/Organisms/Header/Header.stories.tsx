@@ -13,12 +13,7 @@ export default {
     ),
   ],
   argTypes: {
-    isLogged: {
-      control: {
-        type: "boolean",
-      },
-    },
-    userName: {
+    profileLinkNode: {
       control: {
         type: "text",
       },

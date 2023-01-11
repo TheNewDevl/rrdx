@@ -1,33 +1,41 @@
 import style from "./Header.module.scss";
 import { Logo } from "../../Atoms/Logo/Logo";
-import { useState } from "react";
+import { ReactNode } from "react";
 import { Link } from "../../Atoms/Link/Link";
+import { Loader } from "../../Atoms/Loader/Loader";
 
-interface HeaderProps {}
+interface HeaderProps {
+  profileLinkNode: ReactNode;
+  isLoggedIn: boolean;
+  onLogoutClick: () => void;
+  isLoading: boolean;
+}
 
 /**
  * Header Component
  * Displays the logo, navigation links and the username
  *  ## Usage
  *  ```jsx
- *  <Header />
+ *  <Header profileLinkNode=‘username’ isLoading={} isLoggedIn=‘true’ onLogoutClick={() => {}} />
  *  ```
  */
-export const Header = ({}: HeaderProps) => {
-  const [isLogged, setIsLogged] = useState(false);
-  const [userName, setUserName] = useState("Tony");
-
+export const Header = ({ profileLinkNode, isLoggedIn, onLogoutClick, isLoading }: HeaderProps) => {
   return (
     <header className={style.Header}>
-      <Link path="/" linkText={""} icon={""} children={<Logo />} />
+      <Link path="/" icon={""} children={<Logo />} />
       <nav>
-        {isLogged ? (
-          <>
-            <Link path="/profile" icon="user-circle" linkText={userName && userName} />
-            <Link path="/" icon="sign-out" linkText={"Sign Out"} onClick={() => setIsLogged(false)} />
-          </>
+        {isLoading ? (
+          <Loader color={"#000"} size={20} />
         ) : (
-          <Link path="/login" icon={"user-circle"} linkText={"Sign In"} onClick={() => setIsLogged(true)} />
+          <>
+            {isLoggedIn && (
+              <>
+                <Link path="/profile" icon="user-circle" children={profileLinkNode} />
+                <Link path="/" icon="sign-out" linkText={"Sign Out"} onClick={onLogoutClick} />
+              </>
+            )}
+            {!isLoggedIn && <Link path="/login" icon={"user-circle"} linkText={"Sign In"} />}
+          </>
         )}
       </nav>
     </header>

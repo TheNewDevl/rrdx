@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 interface LinkProps {
   path: string;
   icon?: string;
-  linkText: string;
+  linkText?: string;
   onClick?: () => void;
   children?: ReactNode;
 }
