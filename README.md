@@ -56,6 +56,9 @@ npm run dev
 
 Your frontend client server should now be running at http://127.0.0.1:5173/
 
+**Important : If back end server is not running in the port 3001, you will need to change the server port in
+the `apps/client/config.ts` file.**
+
 ## API Documentation
 
 If backend server is running, my suggest for the transactions API documentation is available
