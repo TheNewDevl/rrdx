@@ -4,10 +4,15 @@ import { selectAuth } from "../store/features/auth";
 import { isJWT } from "@rrdx-mono/functions";
 import { selectUser } from "../store/features/user";
 
+/**
+ * This component is used to protect routes
+ * It will check if store has a valid token and user data and if so it will render the children
+ * If not it will redirect to login page
+ */
 export const ProtectedRoutes = () => {
   const token = useAppSelector(selectAuth).token;
   const user = useAppSelector(selectUser).user;
-  //TODO: Check if user is logged in using redux state
+
   if (token && isJWT(token) && user) {
     return <Outlet />;
   }

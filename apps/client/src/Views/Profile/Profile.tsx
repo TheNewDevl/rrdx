@@ -6,22 +6,38 @@ import { fetchOrUpdateUser, selectUser } from "../../store/features/user";
 import { RequestStateEnum, UsernameErrors, UsernamePayload } from "@rrdx-mono/types";
 import { usernameValidator } from "@rrdx-mono/functions";
 
-interface ProfileProps {}
-
-export const Profile = ({}: ProfileProps) => {
+/**
+ * Profile page component
+ */
+export const Profile = () => {
   // Display or not the form to edit the username
   const [isEditing, setIsEditing] = useState(false);
 
-  // The fistName and values input values
+  // The fistName and lastName input values
   const [name, setName] = useState<UsernamePayload>({ firstName: "", lastName: "" });
+
+  /**
+   * Handle the firstName input change
+   * @param e - change event
+   */
   const handleFirstName = (e: ChangeEvent<HTMLInputElement>) => setName({ ...name, firstName: e.target.value });
+
+  /**
+   * Handle the lastName input change
+   * @param e - change event
+   */
   const handleLastName = (e: ChangeEvent<HTMLInputElement>) => setName({ ...name, lastName: e.target.value });
+
+  // Store the errors of the controlled inputs
   const [inputsErrors, setInputsErrors] = useState<UsernameErrors>({} as UsernameErrors);
 
-  // Store
+  // Get needed information from the store(error, states, etc)
   const dispatch = useAppDispatch();
   const { user, status, error: networkError } = useAppSelector(selectUser);
 
+  /**
+   * Validate the username and dispatch the action to the store if there are no errors
+   */
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setInputsErrors({} as UsernameErrors);
@@ -36,6 +52,9 @@ export const Profile = ({}: ProfileProps) => {
     }
   };
 
+  /**
+   * Reset the form and hide it
+   */
   const returnToProfile = () => {
     setIsEditing(false);
     setName({ firstName: "", lastName: "" });

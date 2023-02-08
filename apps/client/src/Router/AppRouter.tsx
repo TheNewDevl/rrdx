@@ -5,6 +5,9 @@ import { Login } from "../Views/Login/Login";
 import { Error } from "../Views/Error/Error";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 
+/**
+ * Main router for the application
+ */
 export const AppRouter = () => {
   return (
     <Routes>

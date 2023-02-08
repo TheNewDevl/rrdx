@@ -5,6 +5,7 @@ import Api from "../../api/axios";
 import { fetchOrUpdateUser, userLogout } from "./user";
 import { getLsItem, removeLsItem, setLsItem } from "@rrdx-mono/functions";
 
+/** Create the initial state for the auth slice of the store */
 const initialState: AuthState = {
   token: null,
   status: RequestStateEnum.VOID,
@@ -14,22 +15,30 @@ const initialState: AuthState = {
 
 export const fetchOrUpdateAuth = (credentials: LoginBody) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
+    //Retrieve the current status of the auth state
     const status = selectAuth(getState()).status;
+    //If the status is pending or updating, we don't want to do anything because we don't want to make multiple requests at the same time
     if (status === RequestStateEnum.PENDING || status === RequestStateEnum.UPDATING) {
       return;
     }
+    //Dispatch the action to set the status to pending or updating depending on the current status
     dispatch(actions.authFetching());
     try {
+      //Run the login request
       const data = await Api.login(credentials);
+      //Set the token in the Api class and in the state
       Api.requestToken = data.body.token;
       dispatch(actions.authResolved(data.body.token));
+      //Chain fetchOrUpdateUser to fetch the user data
       await dispatch(fetchOrUpdateUser());
+      //If the user wants to be remembered, we save the token in the local storage
       const remember = selectAuth(getState()).remember;
       if (remember) {
         setLsItem("token", data.body.token);
       }
     } catch (error: any) {
       console.log(error);
+      //If the request fails, we dispatch the rejected action with the error message
       if (error.response) {
         dispatch(actions.authRejected(error.response.data?.message || error.message));
       } else {
@@ -44,6 +53,7 @@ export const fetchOrUpdateAuth = (credentials: LoginBody) => {
   };
 };
 
+/** If user checked remember, remove token from localStorage. Also dispatch authLogout and userLogout actions */
 export const logout = (dispatch: AppDispatch, getState: () => RootState) => {
   const remember = selectAuth(getState()).remember;
   remember && removeLsItem("token");
@@ -51,6 +61,7 @@ export const logout = (dispatch: AppDispatch, getState: () => RootState) => {
   dispatch(userLogout());
 };
 
+/** Auth slice */
 const { actions, reducer: authReducer } = createSlice({
   name: "auth",
   initialState,

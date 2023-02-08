@@ -1,6 +1,10 @@
 import { FeatureCard, FlexContainer, Title, Hero } from "@rrdx-mono/ui";
 import { features, hero } from "../../mockup/homeMockup";
 
+/**
+ * Home page view
+ * Displays data from the mockup file
+ */
 export const Home = () => {
   return (
     <main style={{ flex: 1 }}>
